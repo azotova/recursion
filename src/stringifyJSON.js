@@ -14,6 +14,7 @@ var stringifyJSON = function(obj) {
     return false;
   };
   if (typeof obj=="object" && testForEmptyObj(obj)==true) return "{}";
+
   
   if (Array.isArray(obj)==true) {
     var result=[];
@@ -23,8 +24,11 @@ var stringifyJSON = function(obj) {
   if (typeof obj=="object") {
     var result=[];
     for (var key in obj) {
-      var element=stringifyJSON(key)+":"+stringifyJSON(obj[key])
-      result.push(element);
+      if (key===undefined|| obj[key]===undefined|| typeof key == "function" || typeof obj[key] == "function") {var doNothing=0;}  // I do not want to execute anything, just to move to the next key
+      else {
+        var element=stringifyJSON(key)+":"+stringifyJSON(obj[key])
+        result.push(element);
+    };
     };
     return "{"+result.join(",")+"}";
   };
