@@ -20,4 +20,12 @@ var stringifyJSON = function(obj) {
     for (var i=0;i<obj.length;i++) result.push(stringifyJSON(obj[i]));
     return "["+result.join(",")+"]";
   };
+  if (typeof obj=="object") {
+    var result=[];
+    for (var key in obj) {
+      var element=stringifyJSON(key)+":"+stringifyJSON(obj[key])
+      result.push(element);
+    };
+    return "{"+result.join(",")+"}";
+  };
 };
