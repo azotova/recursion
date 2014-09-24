@@ -14,4 +14,10 @@ var stringifyJSON = function(obj) {
     return false;
   };
   if (typeof obj=="object" && testForEmptyObj(obj)==true) return "{}";
+  
+  if (Array.isArray(obj)==true) {
+    var result=[];
+    for (var i=0;i<obj.length;i++) result.push(stringifyJSON(obj[i]));
+    return "["+result.join(",")+"]";
+  };
 };
